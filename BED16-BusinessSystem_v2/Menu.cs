@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +14,8 @@ namespace BED16_BusinessSystem_v2
         }
 
 
-
-        public static void ShowMainMenu()
+        
+        public static void ShowMainMenu(Store<Product> MyStore, CustomerDatabase<Customer> MyCustomerDB)
         {
             Console.Clear();
             Console.WriteLine("Welcome to order management of Group 4"
@@ -35,6 +35,7 @@ namespace BED16_BusinessSystem_v2
             {
                 Console.Write("Select an option by entering the corresponding menu number ");
                 string userInput = Console.ReadLine().ToString();
+
                 isProperUserInput = CheckIfProperUserInput("1234", userInput[0]);
                 if (isProperUserInput)
                 {
@@ -52,17 +53,21 @@ namespace BED16_BusinessSystem_v2
                         Product newProduct = Product.userInput();
                         wantToCreateProducts = CheckIfUserWantToContinue();
                     } while (wantToCreateProducts);
-                    ShowMainMenu();
+                    ShowMainMenu(MyStore, MyCustomerDB);
                     break;
                 case '2':
                     // Show Change Product Price
-                    
+
                     break;
                 case '3':
                     // Show Change Amount In Inventory
                     break;
                 case '4':
-                    // Show Register New Customer
+                    Customer thisCustomer = MyCustomerDB.AddCustomer();
+                    MyCustomerDB.AddToCustomerDB(thisCustomer);
+                    Console.WriteLine("The customer was added to customer DB");
+                    Console.ReadKey();
+                    ShowMainMenu(MyStore, MyCustomerDB);
                     break;
                 case '5':
                     // Show Create New Order
@@ -90,8 +95,8 @@ namespace BED16_BusinessSystem_v2
         // make sure the user want to continue
         public static bool CheckIfUserWantToContinue()
         {
-            Console.WriteLine("Do you want to do the same process again? (y/n) If 'n' is typed, you will return to" 
-                +" the main menu.");
+            Console.WriteLine("Do you want to do the same process again? (y/n) If 'n' is typed, you will return to"
+                + " the main menu.");
             bool isProperUserInput = false;
             string userInput = "";
             do
