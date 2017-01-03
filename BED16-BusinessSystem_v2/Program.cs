@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,9 @@ namespace BED16_BusinessSystem_v2
     {
         static void Main(string[] args)
         {
-            Menu.ShowMainMenu();
+            Store<Product> MyStore = new Store<Product>();
+            CustomerDatabase<Customer> MyCustomerDB = new CustomerDatabase<Customer>();
+            Menu.ShowMainMenu(MyStore, MyCustomerDB);
             
         }
 
